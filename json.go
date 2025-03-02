@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func responseWithError(w http.ResponseWriter, code int, msg string) {
+func respondWithError(w http.ResponseWriter, code int, msg string) {
 	if code > 499 {
 		log.Println("Responding with 5XX error:", msg)	
 	}
@@ -28,6 +28,9 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 	}
 
 	w.Header().Add("Content-Type", "application/json")
-	w.WriteHeader(200)
+	
+	// Fixed: Previously, the function always returned 200 OK.
+	// Now it correctly sets the HTTP status code based on the 'code' parameter.
+	w.WriteHeader(code)
 	w.Write(data)
 }
