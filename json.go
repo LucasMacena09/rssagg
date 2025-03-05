@@ -29,8 +29,6 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 
 	w.Header().Add("Content-Type", "application/json")
 	
-	// Fixed: Previously, the function always returned 200 OK.
-	// Now it correctly sets the HTTP status code based on the 'code' parameter.
 	w.WriteHeader(code)
 	w.Write(data)
 }
